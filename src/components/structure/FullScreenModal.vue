@@ -35,6 +35,7 @@
           class="w-full text-gray-100 text-center text-lg mt-2"
           btnText="Profile"
           color="green"
+          url="/account/profile"
         />
 
         <RouterLinkButton

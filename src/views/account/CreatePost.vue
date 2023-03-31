@@ -1,6 +1,6 @@
 <template>
-  <div id="EditPost" class="container max-w-4xl mx-auto pt-20 pb-20 px-6">
-    <div class="text-gray-900 text-xl">Edit Post</div>
+  <div id="CreatePost" class="container max-w-4xl mx-auto pt-20 pb-20 px-6">
+    <div class="text-gray-900 text-xl">Create Post</div>
     <div class="bg-green-500 w-full h-1"></div>
 
     <CropperModal
@@ -36,7 +36,7 @@
       <div class="w-full md:w-1/2 px-3">
         <DisplayCropperButton
           label="Post Image"
-          btnText="Update Post Image"
+          btnText="Add Post Image"
           @showModal="showModal = true"
         />
       </div>
@@ -61,29 +61,28 @@
 
     <div class="flex flex-wrap mt-8 mb-6">
       <div class="w-full px-3">
-        <SubmitFormButton btnText="Update Post" @submit="updatePost" />
+        <SubmitFormButton btnText="Create Post" @submit="createPost" />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-// import { onMounted, ref } from "vue";
-// import { useRoute, useRouter } from "vue-router";
+// import { ref } from "vue";
 import CroppedImage from "@/components/global/CroppedImage.vue";
 import TextInput from "@/components/global/TextInput.vue";
 import TextArea from "@/components/global/TextArea.vue";
 import CropperModal from "@/components/global/CropperModal.vue";
 import SubmitFormButton from "@/components/global/SubmitFormButton.vue";
 import DisplayCropperButton from "@/components/global/DisplayCropperButton.vue";
-// import { usePostStore } from "@/store/post-store";
-// import { useUserStore } from "@/store/user-store";
+// import { useUserStore } from "../../store/user-store";
+// import { usePostStore } from "../../store/post-store";
+// import { useRouter } from "vue-router";
 // import axios from "axios";
 // import Swal from "../../sweetalert2";
-// const route = useRoute();
-// const router = useRouter();
-// const postStore = usePostStore();
 // const userStore = useUserStore();
+// const postStore = usePostStore();
+// const router = useRouter();
 // let showModal = ref(false);
 // let title = ref(null);
 // let location = ref(null);
@@ -91,33 +90,27 @@ import DisplayCropperButton from "@/components/global/DisplayCropperButton.vue";
 // let imageData = null;
 // let image = ref(null);
 // let errors = ref([]);
-// onMounted(async () => {
-//   await getPostById();
-// });
 // const setCroppedImageData = (data) => {
 //   imageData = data;
 //   image.value = data.imageUrl;
 // };
-// const getPostById = async () => {
-//   try {
-//     let res = await axios.get("api/posts/" + route.params.id);
-//     console.log(res);
-//     title.value = res.data.title;
-//     location.value = res.data.location;
-//     image.value = postStore.postImage(res.data.image);
-//     description.value = res.data.description;
-//   } catch (err) {
-//     errors.value = err.response.data.errors;
-//   }
-// };
-// const updatePost = async () => {
+// const createPost = async () => {
 //   errors.value = [];
+//   if (imageData === null) {
+//     Swal.fire(
+//       "No cropped image found?",
+//       "Please crop an image of your choice and complete all other inputs",
+//       "warning"
+//     );
+//     return null;
+//   }
 //   let data = new FormData();
+//   data.append("user_id", userStore.id || "");
 //   data.append("title", title.value || "");
 //   data.append("location", location.value || "");
 //   data.append("description", description.value || "");
+
 //   if (imageData) {
-//     data.append("id", userStore.id || "");
 //     data.append("image", imageData.file || "");
 //     data.append("height", imageData.height || "");
 //     data.append("width", imageData.width || "");
@@ -125,10 +118,10 @@ import DisplayCropperButton from "@/components/global/DisplayCropperButton.vue";
 //     data.append("top", imageData.top || "");
 //   }
 //   try {
-//     await axios.post("api/posts/" + route.params.id + "?_method=PUT", data);
+//     await axios.post("api/posts/", data);
 //     Swal.fire(
-//       "Updated post!",
-//       'The post you update was called "' + title.value + '"',
+//       "New post created!",
+//       'The post you created was called "' + title.value + '"',
 //       "success"
 //     );
 //     await postStore.fetchPostsByUserId(userStore.id);
